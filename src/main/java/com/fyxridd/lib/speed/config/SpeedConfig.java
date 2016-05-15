@@ -2,8 +2,11 @@ package com.fyxridd.lib.speed.config;
 
 import com.fyxridd.lib.config.api.basic.ListType;
 import com.fyxridd.lib.config.api.basic.Path;
+import com.fyxridd.lib.config.api.convert.ConfigConvert;
 import com.fyxridd.lib.config.api.convert.ListConvert;
 import com.fyxridd.lib.config.api.limit.Min;
+import com.fyxridd.lib.lang.api.LangConverter;
+import com.fyxridd.lib.lang.api.LangGetter;
 
 import java.util.List;
 
@@ -34,6 +37,10 @@ public class SpeedConfig {
     @Min(1)
     private long sideClearTimeout;
 
+    @Path("lang")
+    @ConfigConvert(LangConverter.class)
+    private LangGetter lang;
+
     public int getShortClearInterval() {
         return shortClearInterval;
     }
@@ -48,5 +55,9 @@ public class SpeedConfig {
 
     public long getSideClearTimeout() {
         return sideClearTimeout;
+    }
+
+    public LangGetter getLang() {
+        return lang;
     }
 }

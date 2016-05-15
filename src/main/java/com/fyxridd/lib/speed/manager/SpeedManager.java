@@ -2,9 +2,10 @@ package com.fyxridd.lib.speed.manager;
 
 import com.fyxridd.lib.config.api.ConfigApi;
 import com.fyxridd.lib.config.manager.ConfigManager;
-import com.fyxridd.lib.core.api.CoreApi;
+import com.fyxridd.lib.core.api.MessageApi;
 import com.fyxridd.lib.core.api.UtilApi;
 import com.fyxridd.lib.core.api.event.TimeEvent;
+import com.fyxridd.lib.core.api.fancymessage.FancyMessage;
 import com.fyxridd.lib.speed.SpeedPlugin;
 import com.fyxridd.lib.speed.config.SpeedConfig;
 import org.bukkit.Bukkit;
@@ -22,7 +23,7 @@ public class SpeedManager {
         @Override
         public String get(Player p, String data) {
             Long waitTime = waitHash.get(p);
-            if (waitTime != null) return getWaitShow(waitTime);
+            if (waitTime != null) return getWaitShow(p.getName(), waitTime);
             return "";
         }
     }
@@ -32,9 +33,6 @@ public class SpeedManager {
     private SpeedConfig config;
 
     //缓存
-
-    //可能为null
-    private Object speedHandler;
 
     //长期
 	//插件 类型 玩家名 时间
@@ -50,6 +48,11 @@ public class SpeedManager {
     private Map<Player, Long> waitHash = new HashMap<>();
 
 	public SpeedManager() {
+        if (SpeedPlugin.libMsgHook) {
+            //注册获取器
+            MsgApi.registerSideHandler(HANDLER_NAME, new SpeedHandler());
+        }
+
         //添加配置监听
         ConfigApi.addListener(SpeedPlugin.instance.pn, SpeedConfig.class, new ConfigManager.Setter<SpeedConfig>() {
             @Override
@@ -98,11 +101,6 @@ public class SpeedManager {
             }
         }, SpeedPlugin.instance);
 
-        if (CoreMain.libMsgHook) {
-            speedHandler = new SpeedHandler();
-            //注册获取器
-            MsgApi.registerSideHandler(HANDLER_NAME, (SideHandler) speedHandler);
-        }
         //计时器
         //每1tick检测所有玩家,清除过期数据及侧边栏提示
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SpeedPlugin.instance, new Runnable() {
@@ -125,21 +123,7 @@ public class SpeedManager {
     }
 
     /**
-     * @see #check(Player, String, String, int, boolean)
-     */
-	public boolean check(Player p, String plugin, String type, int limit) {
-        return check(p, plugin, type, limit, true);
-	}
-
-    /**
-     * 速度检测<br>
-     * 会提示在聊天栏
-     * @param p 玩家,不为null
-     * @param plugin 插件,不为null
-     * @param type 类型,不为null
-     * @param limit 限制,单位毫秒,>=0
-     * @param tip 速度过快时是否提示玩家(不是界面的强制显示)
-     * @return true表示速度在允许范围内,false表示速度过快
+     * @see com.fyxridd.lib.speed.api.SpeedApi#check(Player, String, String, int, boolean)
      */
     public boolean check(Player p, String plugin, String type, int limit, boolean tip) {
         String name = p.getName();
@@ -158,7 +142,7 @@ public class SpeedManager {
         if (pre != null && now-pre<limit) {
             if (tip) {
                 double wait = UtilApi.getDouble(((double) limit - (now - pre)) / 1000, 1);
-                ShowApi.tip(p, get(1000, wait), true);
+                MessageApi.send(p, get(p.getName(), 10, wait), false);
             }
             return false;
         }
@@ -167,14 +151,7 @@ public class SpeedManager {
     }
 
     /**
-     * 检测短期间隔<br>
-     * 会提示在侧边栏<br>
-     * 注:短期间隔不用注册
-     * @param p 玩家,不为null
-     * @param plugin 插件,不为null
-     * @param type 类型,不为null
-     * @param level 等级,从1开始,配置文件中定义
-     * @return true表示速度在允许范围内,false表示速度过快
+     * @see com.fyxridd.lib.speed.api.SpeedApi#checkShort(Player, String, String, int)
      */
     public boolean checkShort(Player p, String plugin, String type, int level) {
         //检测level
@@ -198,8 +175,8 @@ public class SpeedManager {
             long wait = limit - (now - pre);
             startHash.put(p, now);
             waitHash.put(p, wait);
-            if (config.isSideEnable() && speedHandler != null) MsgApi.updateSideShow(p, HANDLER_NAME);
-            else ShowApi.tip(p, getWaitShow(wait), false);
+            if (config.isSideEnable() && SpeedPlugin.libMsgHook) MsgApi.updateSideShow(p, HANDLER_NAME);
+            else MessageApi.send(p, getWaitShow(p.getName(), wait), true);
             return false;
         }
         //速度正常
@@ -208,7 +185,14 @@ public class SpeedManager {
 
     }
 
-    private String getWaitShow(long wait) {
-        return get(1000, UtilApi.getDouble((double)wait/1000, 1)).getText();
+    /**
+     * 获取等待时间的显示
+     */
+    private String getWaitShow(String player, long wait) {
+        return get(player, 10, UtilApi.getDouble((double)wait/1000, 1)).getText();
+    }
+
+    private FancyMessage get(String player, int id, Object... args) {
+        return config.getLang().get(player, id, args);
     }
 }
