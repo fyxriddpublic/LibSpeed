@@ -140,10 +140,7 @@ public class SpeedManager {
         }
         Long pre = typeHash.get(name);
         if (pre != null && now-pre<limit) {
-            if (tip) {
-                double wait = UtilApi.getDouble(((double) limit - (now - pre)) / 1000, 1);
-                MessageApi.send(p, get(p.getName(), 10, wait), false);
-            }
+            if (tip) MessageApi.send(p, get(p.getName(), 10, UtilApi.getDouble(((double) limit - (now - pre)) / 1000, 1)), true);
             return false;
         }
         typeHash.put(name, now);
@@ -176,7 +173,7 @@ public class SpeedManager {
             startHash.put(p, now);
             waitHash.put(p, wait);
             if (config.isSideEnable() && SpeedPlugin.libMsgHook) MsgApi.updateSideShow(p, HANDLER_NAME);
-            else MessageApi.send(p, getWaitShow(p.getName(), wait), true);
+            else MessageApi.send(p, getWaitShow(p.getName(), wait), false);
             return false;
         }
         //速度正常
