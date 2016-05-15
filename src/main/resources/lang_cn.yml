@@ -1,0 +1,281 @@
+﻿show-5: "&c输入格式错误."
+show-10: "&c没有权限(&2{0}&c)."
+show-25: "&a{0}插件v{1}已经启动!"
+show-30: "&c{0}插件v{1}已经停止!"
+show-35: "<{0}> {1}"
+show-40: "&c目标玩家'{0}'不在线."
+show-50: "&5生命+{0}"
+show-55: "{0}天{1}时{2}分{3}秒{4}毫秒"
+show-60: "{0}天{1}时{2}分{3}秒"
+show-65: "{0}天{1}时{2}分"
+show-67: "{0}时{1}分{2}秒"
+show-70: "&c服务器关闭/重启."
+show-100: "&c操作异常."
+show-126: "&c数字格式错误."
+show-127: "&c此命令只能由玩家发出."
+#################################
+#####        名字映射        #####
+#################################
+show-300: "{0}"
+#################################
+#####        配置管理        #####
+#################################
+show-400: "&a重新读取配置成功."
+show-405: "&c重新读取配置文件失败."
+show-410: "&c操作异常."
+show-415: "&e确认重新读取插件&d{plugin}&e的配置吗?  <0>  <1>"
+info-415:
+  0:
+    text: "[确认]"
+    color: "a"
+    onClick: "cmd /f tm a"
+  1:
+    text: "[取消]"
+    color: "7"
+    onClick: "cmd /f tm c"
+#################################
+#####       功能管理        #####
+#################################
+show-500: "&c未找到使用名为'&e{0}&c'映射的功能名."
+show-505: "&c未找到功能名为'&e{0}&c'映射的功能."
+show-515: "&c未指定功能使用名."
+show-520: "&c功能不存在."
+show-525: "&c功能无效(服务器未开启此功能)."
+show-530: "&c功能未开启."
+#################################
+#####       显示管理        #####
+#################################
+show-600: "页面读取:  show-{0}异常."
+show-605: "页面读取:  info-{0}异常."
+show-610: "页面读取:  行{0}异常."
+show-615: "页面读取:  文件操作异常."
+show-620: "页面读取:  pageMax异常."
+show-625: "页面读取:  listSize异常."
+show-630: "当前没有查看的页面."
+show-635: "保存页面成功."
+show-640: "页面保存:  文件操作异常."
+show-645: "&c页面异常,未知页面."
+show-650: "&c指定的页面不存在."
+show-655: "&c显示异常."
+show-660: "&7返回上一页."
+show-665: "&c当前没有查看的页面."
+show-670: "&c当前页面没有列表."
+show-675: "&c退出页面."
+show-680: "&e前往第<0>&e页  <1>  <2>"
+info-680:
+  0:
+    text: " {page} "
+    color: "d"
+    formats: "n"
+    onClick: "cmd /f tm b page"
+  1:
+    text: "[确认]"
+    color: "7"
+    onClick: "cmd /f tm a"
+  2:
+    text: "[取消]"
+    color: "7"
+    onClick: "cmd /f tm c"
+show-685: "&c页面超出范围."
+show-690: "&e前往列表第<0>&e页  <1>  <2>"
+info-690:
+  0:
+    text: " {page} "
+    color: "d"
+    formats: "n"
+    onClick: "cmd /f tm b page"
+  1:
+    text: "[确认]"
+    color: "7"
+    onClick: "cmd /f tm a"
+  2:
+    text: "[取消]"
+    color: "7"
+    onClick: "cmd /f tm c"
+show-695: "&c你已经处于这一页了."
+show-700: "&a前往页面{0}成功."
+show-705: "&a前往列表页面{0}成功."
+show-710: "&7=====[<0>&7]==========[&e操作提示&7]==========[<1>&7]====="
+info-710:
+  0:
+    text: "返回"
+    color: "3"
+    onClick: "cmd /f sm p b"
+    onHover: "&7返回上级"
+  1:
+    text: "退出"
+    color: "c"
+    onClick: "cmd /f sm p e"
+    onHover: "&7退出页面"
+show-715: "&7&o无提示."
+show-720: "&7--<页面>--   <0><1>   <2><3>   <4>&7/{pageMax}   <5><6>   <7><8>   &7--<页面>--"
+info-720:
+  0:
+    text: "<<<"
+    con: "{pageNow} != 1"
+    color: "3"
+    onClick: "cmd /f sm p f"
+    onHover: "&7第一页"
+  1:
+    text: "<<<"
+    con: "{pageNow} == 1"
+    color: "7"
+    onClick: "cmd /f sm p f"
+    onHover: "&7第一页"
+  2:
+    text: "<--"
+    con: "{pageNow} > 1"
+    color: "3"
+    onClick: "cmd /f sm p p"
+    onHover: "&7前一页"
+  3:
+    text: "<--"
+    con: "{pageNow} <= 1"
+    color: "7"
+    onClick: "cmd /f sm p p"
+    onHover: "&7前一页"
+  4:
+    text: "{pageNow}"
+    color: "3"
+    onClick: "cmd /f tp Lib_core toPage"
+    onHover: "&7指定页"
+  5:
+    text: "-->"
+    con: "{pageNow} < {pageMax}"
+    color: "3"
+    onClick: "cmd /f sm p n"
+    onHover: "&7后一页"
+  6:
+    text: "-->"
+    con: "{pageNow} >= {pageMax}"
+    color: "7"
+    onClick: "cmd /f sm p n"
+    onHover: "&7后一页"
+  7:
+    text: ">>>"
+    con: "{pageNow} < {pageMax}"
+    color: "3"
+    onClick: "cmd /f sm p l"
+    onHover: "&7最后页"
+  8:
+    text: ">>>"
+    con: "{pageNow} >= {pageMax}"
+    color: "7"
+    onClick: "cmd /f sm p l"
+    onHover: "&7最后页"
+show-725: "&7   -<列表>-  <0><1>   <2><3>   <4>&7/{listMax}   <5><6>   <7><8>  &7-<列表>-"
+info-725:
+  0:
+    text: "<<<"
+    con: "{listNow} != 1"
+    color: "3"
+    onClick: "cmd /f sm l f"
+    onHover: "&7第一页"
+  1:
+    text: "<<<"
+    con: "{listNow} == 1"
+    color: "7"
+    onClick: "cmd /f sm l f"
+    onHover: "&7第一页"
+  2:
+    text: "<--"
+    con: "{listNow} > 1"
+    color: "3"
+    onClick: "cmd /f sm l p"
+    onHover: "&7前一页"
+  3:
+    text: "<--"
+    con: "{listNow} <= 1"
+    color: "7"
+    onClick: "cmd /f sm l p"
+    onHover: "&7前一页"
+  4:
+    text: "{listNow}"
+    color: "3"
+    onClick: "cmd /f tp Lib_core toList"
+    onHover: "&7指定页"
+  5:
+    text: "-->"
+    con: "{listNow} < {listMax}"
+    color: "3"
+    onClick: "cmd /f sm l n"
+    onHover: "&7后一页"
+  6:
+    text: "-->"
+    con: "{listNow} >= {listMax}"
+    color: "7"
+    onClick: "cmd /f sm l n"
+    onHover: "&7后一页"
+  7:
+    text: ">>>"
+    con: "{listNow} < {listMax}"
+    color: "3"
+    onClick: "cmd /f sm l l"
+    onHover: "&7最后页"
+  8:
+    text: ">>>"
+    con: "{listNow} >= {listMax}"
+    color: "7"
+    onClick: "cmd /f sm l l"
+    onHover: "&7最后页"
+show-730: "&7 -"
+show-740: "&c页面未生效."
+#################################
+#####        输入管理       #####
+#################################
+show-800: "&c输入操作取消."
+#################################
+#####       玩家真名        #####
+#################################
+show-900: "&c目标玩家&e{0}&c不存在."
+show-905: "&c\n
+           &c检测到你现在用的用户名(&e{0}&c)与第一次进服用的用户名(&e{1}&c)大小写不匹配!\n
+           &6这是你注册的账号吗?\n
+           &a> 如果是,请在登录器中将名字改为(&e{1}&a)后重新进服\n
+           &c> 如果不是,请在登录器中更换名字"
+#################################
+#####          速度         #####
+#################################
+show-1000: "&c稍后{0}s"
+#################################
+#####         事务          #####
+#################################
+show-1105: "&7指定的事务不存在或已经结束."
+show-1110: "&c你当前没有事务."
+show-1115: "&7================[&b&l事务提醒&7]================"
+show-1120: "&7=========================================="
+#################################
+#####       提示事务        #####
+#################################
+show-1200: "<0> "
+info-1200:
+  0:
+    text: "[提示]"
+    color: "6"
+    onHover: "&a 输入位置: &7点击选择\n
+              &a输入方式: &71.直接聊天输入&e内容&7 2.用命令输入&e/s 内容"
+show-1210: "&c指定的配置不存在."
+show-1215: "&c插件'&e{0}&c'未注册任何提示配置."
+show-1220: "&c插件'&e{0}&c'未注册'&e{1}&c'提示配置名."
+show-1225: "&c插件'&e{0}&c'未注册任何提示Recommends处理器."
+show-1230: "&c插件'&e{0}&c'未注册'&e{1}&c'提示Recommends处理器."
+show-1235: "&c插件'&e{0}&c'未注册任何提示Params处理器."
+show-1240: "&c插件'&e{0}&c'未注册'&e{1}&c'提示Params处理器."
+show-1245: "&c插件'&e{0}&c'的'&e{1}&c'提示Params处理器获取值异常."
+#################################
+#####         权限          #####
+#################################
+show-1300: "&a创建成功."
+show-1310: "&c创建失败."
+show-1320: "&a添加成功."
+show-1330: "&c添加失败."
+show-1340: "&a删除成功."
+show-1350: "&c删除失败."
+show-1360: "&a给玩家'{0}'添加权限组'{1}'成功."
+show-1370: "&c给玩家'{0}'添加权限组'{1}'失败."
+show-1380: "&a给玩家'{0}'删除权限组'{1}'成功."
+show-1390: "&c给玩家'{0}'删除权限组'{1}'失败."
+show-1400: "&a给玩家'{0}'添加权限'{1}'成功."
+show-1410: "&c给玩家'{0}'添加权限'{1}'失败."
+show-1420: "&a给玩家'{0}'删除权限'{1}'成功."
+show-1430: "&c给玩家'{0}'删除权限'{1}'失败."
