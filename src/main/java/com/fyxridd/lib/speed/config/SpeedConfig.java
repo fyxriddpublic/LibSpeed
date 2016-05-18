@@ -1,12 +1,12 @@
 package com.fyxridd.lib.speed.config;
 
-import com.fyxridd.lib.config.api.basic.ListType;
-import com.fyxridd.lib.config.api.basic.Path;
-import com.fyxridd.lib.config.api.convert.ConfigConvert;
-import com.fyxridd.lib.config.api.convert.ListConvert;
-import com.fyxridd.lib.config.api.limit.Min;
-import com.fyxridd.lib.lang.api.LangConverter;
-import com.fyxridd.lib.lang.api.LangGetter;
+import com.fyxridd.lib.core.api.config.basic.ListType;
+import com.fyxridd.lib.core.api.config.basic.Path;
+import com.fyxridd.lib.core.api.config.convert.ConfigConvert;
+import com.fyxridd.lib.core.api.config.convert.ListConvert;
+import com.fyxridd.lib.core.api.config.limit.Min;
+import com.fyxridd.lib.core.api.lang.LangConverter;
+import com.fyxridd.lib.core.api.lang.LangGetter;
 
 import java.util.List;
 

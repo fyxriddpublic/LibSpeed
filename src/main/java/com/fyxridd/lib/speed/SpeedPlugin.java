@@ -1,6 +1,6 @@
 package com.fyxridd.lib.speed;
 
-import com.fyxridd.lib.config.api.ConfigApi;
+import com.fyxridd.lib.core.api.config.ConfigApi;
 import com.fyxridd.lib.core.api.plugin.SimplePlugin;
 import com.fyxridd.lib.speed.config.SpeedConfig;
 import com.fyxridd.lib.speed.manager.SpeedManager;

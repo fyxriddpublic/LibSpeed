@@ -1,11 +1,11 @@
 package com.fyxridd.lib.speed.manager;
 
-import com.fyxridd.lib.config.api.ConfigApi;
-import com.fyxridd.lib.config.manager.ConfigManager;
 import com.fyxridd.lib.core.api.MessageApi;
 import com.fyxridd.lib.core.api.UtilApi;
+import com.fyxridd.lib.core.api.config.ConfigApi;
 import com.fyxridd.lib.core.api.event.TimeEvent;
 import com.fyxridd.lib.core.api.fancymessage.FancyMessage;
+import com.fyxridd.lib.core.config.ConfigManager;
 import com.fyxridd.lib.speed.SpeedPlugin;
 import com.fyxridd.lib.speed.config.SpeedConfig;
 import org.bukkit.Bukkit;
