@@ -3,9 +3,9 @@ package com.fyxridd.lib.speed.manager;
 import com.fyxridd.lib.core.api.MessageApi;
 import com.fyxridd.lib.core.api.UtilApi;
 import com.fyxridd.lib.core.api.config.ConfigApi;
+import com.fyxridd.lib.core.api.config.Setter;
 import com.fyxridd.lib.core.api.event.TimeEvent;
 import com.fyxridd.lib.core.api.fancymessage.FancyMessage;
-import com.fyxridd.lib.core.config.ConfigManager;
 import com.fyxridd.lib.speed.SpeedPlugin;
 import com.fyxridd.lib.speed.config.SpeedConfig;
 import org.bukkit.Bukkit;
@@ -54,7 +54,7 @@ public class SpeedManager {
         }
 
         //添加配置监听
-        ConfigApi.addListener(SpeedPlugin.instance.pn, SpeedConfig.class, new ConfigManager.Setter<SpeedConfig>() {
+        ConfigApi.addListener(SpeedPlugin.instance.pn, SpeedConfig.class, new Setter<SpeedConfig>() {
             @Override
             public void set(SpeedConfig value) {
                 config = value;
