@@ -92,7 +92,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${env.183_PLUGINS}</outputDirectory>
+                            <outputDirectory>${env.MC_PLUGINS}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${basedir}/target</directory>

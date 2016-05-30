@@ -11,7 +11,7 @@ import com.fyxridd.lib.core.api.lang.LangGetter;
 import java.util.List;
 
 public class SpeedConfig {
-    private class ShortLevelsConverter implements ListConvert.ListConverter<Integer[]> {
+    private static class ShortLevelsConverter implements ListConvert.ListConverter<Integer[]> {
         @Override
         public Integer[] convert(String plugin, List list) {
             Integer[] result = new Integer[list.size()];
