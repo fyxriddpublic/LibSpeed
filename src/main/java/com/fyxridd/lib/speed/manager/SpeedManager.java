@@ -6,6 +6,8 @@ import com.fyxridd.lib.core.api.config.ConfigApi;
 import com.fyxridd.lib.core.api.config.Setter;
 import com.fyxridd.lib.core.api.event.TimeEvent;
 import com.fyxridd.lib.core.api.fancymessage.FancyMessage;
+import com.fyxridd.lib.msg.api.MsgApi;
+import com.fyxridd.lib.msg.api.SideGetter;
 import com.fyxridd.lib.speed.SpeedPlugin;
 import com.fyxridd.lib.speed.config.SpeedConfig;
 import org.bukkit.Bukkit;
@@ -19,15 +21,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class SpeedManager {
-    private class SpeedHandler implements SideHandler {
-        @Override
-        public String get(Player p, String data) {
-            Long waitTime = waitHash.get(p);
-            if (waitTime != null) return getWaitShow(p.getName(), waitTime);
-            return "";
-        }
-    }
-
     private static final String HANDLER_NAME = "speed";
 
     private SpeedConfig config;
@@ -49,8 +42,21 @@ public class SpeedManager {
 
 	public SpeedManager() {
         if (SpeedPlugin.libMsgHook) {
-            //注册获取器
-            MsgApi.registerSideHandler(HANDLER_NAME, new SpeedHandler());
+            //延时0秒进行(解决插件循环依赖的问题)
+            Bukkit.getScheduler().scheduleSyncDelayedTask(SpeedPlugin.instance, new Runnable() {
+                @Override
+                public void run() {
+                    //注册获取器
+                    MsgApi.registerSideGetter(HANDLER_NAME, new SideGetter() {
+                        @Override
+                        public String get(Player p, String data) {
+                            Long waitTime = waitHash.get(p);
+                            if (waitTime != null) return getWaitShow(p.getName(), waitTime);
+                            return "";
+                        }
+                    });
+                }
+            });
         }
 
         //添加配置监听

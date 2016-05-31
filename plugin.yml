@@ -2,3 +2,4 @@
 main: com.fyxridd.lib.speed.SpeedPlugin
 version: 0.1.0
 depend: [LibCore]
+softdepend: [LibMsg]

@@ -14,6 +14,11 @@ public class SpeedPlugin extends SimplePlugin{
     @Override
     public void onEnable() {
         instance = this;
+        try {
+            Class.forName("com.fyxridd.lib.msg.MsgPlugin");
+            libMsgHook = true;
+        } catch (ClassNotFoundException e) {
+        }
 
         //注册配置
         ConfigApi.register(pn, SpeedConfig.class);
