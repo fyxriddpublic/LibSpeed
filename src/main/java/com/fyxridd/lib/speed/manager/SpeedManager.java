@@ -72,25 +72,27 @@ public class SpeedManager {
         Bukkit.getPluginManager().registerEvent(TimeEvent.class, SpeedPlugin.instance, EventPriority.LOW, new EventExecutor() {
             @Override
             public void execute(Listener listener, Event e) throws EventException {
-                if (TimeEvent.getTime() % config.getShortClearInterval() == 0) {
-                    Long now = System.currentTimeMillis();
-                    long limit = config.getShortClearInterval()*1000;
-                    Iterator<Map.Entry<Player, Map<String, Map<String, Long>>>> it1 = shortHash.entrySet().iterator();
-                    while (it1.hasNext()) {
-                        Map.Entry<Player, Map<String, Map<String, Long>>> entry1 = it1.next();
-                        Iterator<Map.Entry<String, Map<String, Long>>> it2 = entry1.getValue().entrySet().iterator();
-                        while (it2.hasNext()) {
-                            Map.Entry<String, Map<String, Long>> entry2 = it2.next();
-                            Iterator<Map.Entry<String, Long>> it3 = entry2.getValue().entrySet().iterator();
-                            while (it3.hasNext()) {
-                                Map.Entry<String, Long> entry3 = it3.next();
-                                if (now - entry3.getValue() > limit) {//超过清理限制
-                                    it3.remove();
+                if (e instanceof TimeEvent) {
+                    if (TimeEvent.getTime() % config.getShortClearInterval() == 0) {
+                        Long now = System.currentTimeMillis();
+                        long limit = config.getShortClearInterval()*1000;
+                        Iterator<Map.Entry<Player, Map<String, Map<String, Long>>>> it1 = shortHash.entrySet().iterator();
+                        while (it1.hasNext()) {
+                            Map.Entry<Player, Map<String, Map<String, Long>>> entry1 = it1.next();
+                            Iterator<Map.Entry<String, Map<String, Long>>> it2 = entry1.getValue().entrySet().iterator();
+                            while (it2.hasNext()) {
+                                Map.Entry<String, Map<String, Long>> entry2 = it2.next();
+                                Iterator<Map.Entry<String, Long>> it3 = entry2.getValue().entrySet().iterator();
+                                while (it3.hasNext()) {
+                                    Map.Entry<String, Long> entry3 = it3.next();
+                                    if (now - entry3.getValue() > limit) {//超过清理限制
+                                        it3.remove();
+                                    }
                                 }
+                                if (entry2.getValue().isEmpty()) it2.remove();
                             }
-                            if (entry2.getValue().isEmpty()) it2.remove();
+                            if (entry1.getValue().isEmpty()) it1.remove();
                         }
-                        if (entry1.getValue().isEmpty()) it1.remove();
                     }
                 }
             }
@@ -99,11 +101,13 @@ public class SpeedManager {
         Bukkit.getPluginManager().registerEvent(PlayerQuitEvent.class, SpeedPlugin.instance, EventPriority.HIGHEST, new EventExecutor() {
             @Override
             public void execute(Listener listener, Event e) throws EventException {
-                PlayerQuitEvent event = (PlayerQuitEvent) e;
-                //删除短期
-                shortHash.remove(event.getPlayer());
-                startHash.remove(event.getPlayer());
-                waitHash.remove(event.getPlayer());
+                if (e instanceof PlayerQuitEvent) {
+                    PlayerQuitEvent event = (PlayerQuitEvent) e;
+                    //删除短期
+                    shortHash.remove(event.getPlayer());
+                    startHash.remove(event.getPlayer());
+                    waitHash.remove(event.getPlayer());
+                }
             }
         }, SpeedPlugin.instance);
 
